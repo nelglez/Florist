@@ -7,17 +7,19 @@
 //
 
 import Foundation
+import Firebase
 
 class Categories {
     var id: String?
-    var title: String?
+    var name: String?
+
 }
 
 extension Categories {
     static func transformCategories(dict: [String:Any], key: String) -> Categories {
         let category = Categories()
         category.id = key
-        category.title = dict["title"] as? String
+        category.name = dict["name"] as? String
         return category
     }
     
