@@ -16,6 +16,7 @@ class Romance {
     var price: String?
     var sku: String?
     var id: String?
+    var category: String?
 }
 
 extension Romance {
@@ -27,6 +28,7 @@ extension Romance {
         romance.description = dict["description"] as? String
         romance.price = dict["price"] as? String
         romance.sku = dict["sku"] as? String
+        romance.category = dict["category"] as? String
 
         return romance
     }

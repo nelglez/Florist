@@ -28,10 +28,11 @@ class FloristController {
         }
     }
 
-    func loadCategories(completion: @escaping() -> Void) {
+    func loadCategories(completion: @escaping(Categories?) -> Void) {
         API.Categories.observeCategories(completion: { (categories) in
+            self.categories.removeAll()
             self.categories.append(categories)
-            completion()
+            completion(categories)
         })
     }
     

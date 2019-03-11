@@ -34,8 +34,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
     guard let photoUrlString = romance.photoUrl else {return}
     let photoUrl = URL(string: photoUrlString)
     productImageView.sd_setImage(with: photoUrl)
+    productImageView.contentMode = .scaleAspectFit
     }
-    
+
     
     
 }

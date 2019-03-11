@@ -31,19 +31,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VHj-Hg-WGA">
-                                                    <rect key="frame" x="10" y="5" width="300" height="43.5"/>
+                                                    <rect key="frame" x="10" y="5" width="394" height="43.5"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="bxf-IB-gQw">
-                                                            <rect key="frame" x="0.0" y="0.0" width="230" height="43.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="324" height="43.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPH-BP-e7x">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="230" height="22"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="324" height="22"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIV-Zh-dAt">
-                                                                    <rect key="frame" x="0.0" y="23" width="230" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="23" width="324" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -51,7 +51,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="h3B-5g-7xM">
-                                                            <rect key="frame" x="240" y="0.0" width="60" height="43.5"/>
+                                                            <rect key="frame" x="334" y="0.0" width="60" height="43.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qty: 10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Esi-CS-1Sj">
                                                                     <rect key="frame" x="5.5" y="0.0" width="54.5" height="43.5"/>

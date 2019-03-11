@@ -19,21 +19,62 @@ class CategoriesViewController: UIViewController {
     
     var categoryId = "jgkdflsdjvsdjfvsfk"
     
+    var categories: [Categories] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadRomance()
+        loadCategories()
         collectionView.delegate = self
         collectionView.dataSource = self
         
+         NotificationCenter.default.addObserver(self, selector: #selector(newCategoryAdded(_:)), name: .changeCategoryId, object: nil)
         
+        print("CATEGORY ID: \(categoryId)")
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        collectionView.reloadData()
+    }
+    
+   
+
+@objc func newCategoryAdded(_ notification: Notification) {
+    
+    guard let categoryIdSelected = notification.userInfo?["categoryId"] as? String else {return}
+    
+    print("Category Selected \(categoryIdSelected)")
+    self.categoryId = categoryIdSelected
+   
+    
+   loadRomance(Id: categoryIdSelected)
+    
+    
+    }
+    
+    func loadRomance(Id: String) {
+        floristController.loadRomance(categoryId: Id) { (romance) in
+            self.categoryButton.setTitle("\(String(describing: romance!.category!)) >", for: .normal)
+            self.collectionView.reloadData()
+        }
     }
     
     func loadRomance(){
         
         floristController.loadRomance(categoryId: self.categoryId) { (romance) in
-            self.categoryButton.setTitle("\(String(describing: romance!.name!)) >", for: .normal)
+            self.categoryButton.setTitle("\(String(describing: romance!.category!)) >", for: .normal)
             self.collectionView.reloadData()
+        }
+    }
+    
+    func loadCategories() {
+       
+        floristController.loadCategories { (categories) in
+            guard let categories = categories else {return}
+           self.categories.append(categories)
         }
     }
     
@@ -42,6 +83,7 @@ class CategoriesViewController: UIViewController {
         if segue.identifier == "toCategoriesVC" {
             let destinationVC = segue.destination as? CategoriesTableViewController
             destinationVC?.floristController = floristController
+            destinationVC?.categories = categories
         } else if segue.identifier == "toDetailVC" {
             let destinationVC = segue.destination as? DetailViewController
              guard let cell = sender as? ProductCollectionViewCell else {return}
