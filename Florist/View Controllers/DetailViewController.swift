@@ -48,10 +48,11 @@ class DetailViewController: UIViewController {
         productPriceLabel.text = "$ \(String(describing: items.price!))"
         productDescriptionTextView.text = items.description
         productSKULabel.text = items.sku
-        
+        productImageView.contentMode = .scaleAspectFit
         guard let photoUrlString = items.photoUrl else {return}
         let photoUrl = URL(string: photoUrlString)
         productImageView.sd_setImage(with: photoUrl)
+        
     }
     
     @IBAction func addToCartBarButtonPressed(_ sender: UIBarButtonItem) {

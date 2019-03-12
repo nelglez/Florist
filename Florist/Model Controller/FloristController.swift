@@ -20,7 +20,8 @@ class FloristController {
             print(snapshot.key)
             
             API.RomanceAPI.observeRomance(withCategoryId: snapshot.key, completion: { (romance) in
-                self.romance.removeAll()//this makes it so that when i come back it doesnt create another value for like/unlike
+                print(snapshot.key)
+             //   self.romance.removeAll()//this makes it so that when i come back it doesnt create another value
                 self.romance.append(romance)
                 completion(romance)
             })

@@ -20,6 +20,7 @@ class CategoriesViewController: UIViewController {
     var categoryId = "jgkdflsdjvsdjfvsfk"
     
     var categories: [Categories] = []
+    var romance: [Romance] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class CategoriesViewController: UIViewController {
     print("Category Selected \(categoryIdSelected)")
     self.categoryId = categoryIdSelected
    
-    
+    self.romance.removeAll()
    loadRomance(Id: categoryIdSelected)
     
     
@@ -58,6 +59,9 @@ class CategoriesViewController: UIViewController {
     func loadRomance(Id: String) {
         floristController.loadRomance(categoryId: Id) { (romance) in
             self.categoryButton.setTitle("\(String(describing: romance!.category!)) >", for: .normal)
+            guard let romance = romance else {return}
+            
+            self.romance.append(romance)
             self.collectionView.reloadData()
         }
     }
@@ -65,7 +69,9 @@ class CategoriesViewController: UIViewController {
     func loadRomance(){
         
         floristController.loadRomance(categoryId: self.categoryId) { (romance) in
-            self.categoryButton.setTitle("\(String(describing: romance!.category!)) >", for: .normal)
+           self.categoryButton.setTitle("\(String(describing: romance!.category!)) >", for: .normal)
+            guard let romance = romance else {return}
+            self.romance.append(romance)
             self.collectionView.reloadData()
         }
     }
@@ -89,7 +95,7 @@ class CategoriesViewController: UIViewController {
              guard let cell = sender as? ProductCollectionViewCell else {return}
             guard let indexPath = collectionView.indexPath(for: cell) else {return}
            // let product = romance[indexPath.item]
-            let product = floristController.romance[indexPath.item]
+            let product = romance[indexPath.item]
             destinationVC?.product = product
         }
     }
@@ -99,13 +105,13 @@ class CategoriesViewController: UIViewController {
 extension CategoriesViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
      func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return floristController.romance.count
+        return romance.count
     }
     
      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCollectionViewCell
-        let romanceArray = floristController.romance[indexPath.row]
-        
+        let romanceArray = romance[indexPath.row]
+        cell.layer.borderWidth = 1
         cell.romance = romanceArray
         
         return cell

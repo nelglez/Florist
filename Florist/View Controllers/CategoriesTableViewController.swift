@@ -17,14 +17,15 @@ class CategoriesTableViewController: UITableViewController {
         super.viewDidLoad()
 
        loadCategories()
+        tableView.tableFooterView = UIView()
        
     }
     
     
     func loadCategories() {
-    //    floristController?.loadCategories(completion: {
+    
             self.tableView.reloadData()
-    //    })
+   
     }
 
     // MARK: - Table view data source
