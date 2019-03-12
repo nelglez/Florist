@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class DetailViewController: UIViewController {
     
@@ -29,6 +30,8 @@ class DetailViewController: UIViewController {
             updateViews()
         }
     }
+    
+    var quantity = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +59,31 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func addToCartBarButtonPressed(_ sender: UIBarButtonItem) {
-    }
+        guard let quantity = quantityTextField.text, !quantity.isEmpty else {
+            ProgressHUD.showError("Please provide a quantity")
+            return
+        }
+        self.quantity = Int(quantity) ?? 1
+        
+        let alert = UIAlertController(title: "Success!", message: "Flowers added to your cart.", preferredStyle: .alert)
+            
+       // let submitAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+      
+        let submitAction = UIAlertAction(title: "OK", style: .default) { (_) in
+            if let tabItems = self.tabBarController?.tabBar.items {
+                // In this case we want to modify the badge number of the second tab:
+                let tabItem = tabItems[1]
+                tabItem.badgeValue = quantity
+            }
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        alert.addAction(submitAction)
     
+        present(alert, animated: true)
+        
+       
+        
+    }
    
-
 }
