@@ -8,11 +8,64 @@
 
 import Foundation
 import FirebaseDatabase
+import CoreData
 
 class FloristController {
    
     private(set) var romance: [Romance] = []
     private(set) var categories: [Categories] = []
+    
+    var orders: [Order] {
+        
+        let request: NSFetchRequest<Order> = Order.fetchRequest()
+        return (try? CoreDataStack.shared.mainContext.fetch(request)) ?? []
+    }
+    
+    
+    func createOrder(with itemName: String, price: String, quantity: Int) {
+      let order = Order(name: itemName, price: price, quantity: quantity)
+        
+        //Added
+        if let item = order.price {
+            
+            let userInfo = ["itemPriceAdded": item]
+            
+            NotificationCenter.default.post(name: .addItem, object: self, userInfo: userInfo)
+            //^
+            
+        }
+        
+        saveToPersistentStorage()
+        
+    }
+    
+    func saveToPersistentStorage(){
+        //Save changes to disk
+        let moc = CoreDataStack.shared.mainContext
+        do {
+            try moc.save()//Save the task to the persistent store
+        } catch {
+            print("Error saving MOC (managed object context): \(error)")
+        }
+    }
+    
+    func deleteOrder(order: Order) {
+        
+        //Added
+        if let item = order.price {
+            
+            let userInfo = ["itemPrice": item]
+            
+            NotificationCenter.default.post(name: .deleteItem, object: self, userInfo: userInfo)
+            //^
+            
+        }
+        let moc = CoreDataStack.shared.mainContext
+        
+        moc.delete(order)
+        
+        saveToPersistentStorage()
+    }
     
     func loadRomance(categoryId: String, completion: @escaping(Romance?) -> Void){
         

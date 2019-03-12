@@ -10,4 +10,6 @@ import Foundation
 
 extension Notification.Name {
     static var changeCategoryId = Notification.Name("changeCategoryId")
+    static var deleteItem = Notification.Name("deleteItem")
+    static var addItem = Notification.Name("addItem")
 }

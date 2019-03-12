@@ -13,12 +13,22 @@ class CartTableViewCell: UITableViewCell {
     @IBOutlet weak var itemPriceLabel: UILabel!
     @IBOutlet weak var itemQuantityLabel: UILabel!
     
+    var orders: Order? {
+        didSet {
+            updateViews()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
        
     }
 
-  
+    private func updateViews() {
+        guard let order = orders else {return}
+        itemTitleLabel.text = order.itemName
+        itemPriceLabel.text = "$" + " " + order.price!
+        itemQuantityLabel.text = "Qty: \(order.quantity)"
+    }
 
 }

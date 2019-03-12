@@ -97,6 +97,7 @@ class CategoriesViewController: UIViewController {
            // let product = romance[indexPath.item]
             let product = romance[indexPath.item]
             destinationVC?.product = product
+            destinationVC?.floristController = floristController
         }
     }
 
