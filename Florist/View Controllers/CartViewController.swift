@@ -13,6 +13,8 @@ class CartViewController: UIViewController {
     
     @IBOutlet weak var totalLabel: UILabel!
     
+    @IBOutlet weak var checkoutBarButton: UIBarButtonItem!
+    
     var floristController = FloristController()
     
     var price: [Double] = []
@@ -99,9 +101,11 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
     
         if floristController.orders.count == 0 {
             UserDefaults.standard.set(nil, forKey: "ordersCount")
+            checkoutBarButton.isEnabled = false
             showBadge()
         } else {
             UserDefaults.standard.set(floristController.orders.count, forKey: "ordersCount")
+            checkoutBarButton.isEnabled = true
             showBadge()
         }
         

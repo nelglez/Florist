@@ -8,8 +8,9 @@
 
 import UIKit
 import ProgressHUD
+import Stripe
 
-class CheckoutViewController: UIViewController {
+class CheckoutViewController: UIViewController{
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var cardMessageTextView: UITextView!
@@ -43,6 +44,8 @@ class CheckoutViewController: UIViewController {
             return
         }
         
+        handleShippingButtonTapped()
+        
         print("THE DATE FOR DELIVERY IS: \(date)")
         
     }
@@ -56,5 +59,73 @@ class CheckoutViewController: UIViewController {
         self.dateString = dateToString(datePicker: sender)
         
     }
+    
+}
+
+extension CheckoutViewController: STPShippingAddressViewControllerDelegate {
+    
+    func handleShippingButtonTapped() {
+        STPPaymentConfiguration.shared().requiredShippingAddressFields = [.postalAddress, .phoneNumber, .emailAddress, .name]
+        // Setup shipping address view controller
+        let shippingAddressViewController = STPShippingAddressViewController()
+        shippingAddressViewController.delegate = self as STPShippingAddressViewControllerDelegate
+        
+        // Present shipping address view controller
+        let navigationController = UINavigationController(rootViewController: shippingAddressViewController)
+        present(navigationController, animated: true)
+    }
+    
+    
+    func shippingAddressViewControllerDidCancel(_ addressViewController: STPShippingAddressViewController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func shippingAddressViewController(_ addressViewController: STPShippingAddressViewController, didEnter address: STPAddress, completion: @escaping STPShippingMethodsCompletionBlock) {
+        
+        print("didEnterAddress")
+        print(address)
+        
+        
+        let handDelivered = PKShippingMethod()
+        handDelivered.amount = 10.00
+        handDelivered.label = "Hand Delivered"
+        handDelivered.detail = "Arrives today before the day is over"
+        handDelivered.identifier = "hand_delivered"
+        
+        let pickup = PKShippingMethod()
+        pickup.amount = 0.00
+        pickup.label = "Pickup at the store"
+        pickup.detail = "Picked up before 5"
+        pickup.identifier = "pickup"
+        
+       
+        
+        if address.country == "US" {
+            let availableShippingMethods = [handDelivered, pickup]
+            let selectedShippingMethod = handDelivered
+            
+            completion(.valid, nil, availableShippingMethods, selectedShippingMethod)
+        }
+        else {
+            completion(.invalid, nil, nil, nil)
+        }
+    }
+    
+    func shippingAddressViewController(_ addressViewController: STPShippingAddressViewController, didFinishWith address: STPAddress, shippingMethod method: PKShippingMethod?) {
+        print("didFinishWith")
+        // Save selected address and shipping method
+        
+//        selectedAddress = address.line1!
+//        selectedShippingMethod = method!
+        
+        
+        debugPrint(address.line1! as Any)
+        debugPrint(method as Any)
+        
+        // Dismiss shipping address view controller
+        dismiss(animated: true)
+    }
+    
+    
     
 }

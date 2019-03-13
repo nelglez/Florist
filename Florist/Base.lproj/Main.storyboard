@@ -109,6 +109,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="checkoutBarButton" destination="vjj-dg-aLG" id="ijJ-SS-zBo"/>
                         <outlet property="tableView" destination="QeU-PL-Y16" id="fdc-d0-5NW"/>
                         <outlet property="totalLabel" destination="D3S-id-K1F" id="4zy-bI-4vs"/>
                     </connections>
