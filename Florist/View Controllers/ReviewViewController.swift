@@ -45,6 +45,9 @@ class ReviewViewController: UIViewController, STPAddCardViewControllerDelegate {
         deliveryDateLabel.text = "Delivery Date: \(checkout.deliveryDate)"
         cardMessageTextView.text = "Card Message: \(checkout.cardMessage!)"
         shippingAddressTextView.text = "Delivery Info: \(checkout.shippingAddressName)," + " " + "Shipping Method:  \(checkout.shippingMethodIdentifier)," + " " + "Phone Number: \(checkout.shippingAddressPhoneNumber)," + " " + "Address: \(checkout.shippingAddressLine1)," + " " + "Zipcode: \(checkout.shippingAddressZipcode)"
+        
+        payButton.layer.backgroundColor = UIColor.red.cgColor
+        payButton.layer.cornerRadius = 10
    
     }
     
@@ -72,25 +75,46 @@ class ReviewViewController: UIViewController, STPAddCardViewControllerDelegate {
     
     func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
      
-       self.postStripeToken(token: token)
- 
+        self.postStripeToken(token: token) { (error) in
+            
+            if let error = error {
+                ProgressHUD.showError(error.localizedDescription)
+            }
+            
+        }
         
-        // dismiss(animated: true)
+
         dismiss(animated: true) {
-         
-            self.floristController?.removeAll()
-           
-                UserDefaults.standard.set(nil, forKey: "ordersCount")
-           
-            let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "viewController") as UIViewController
-            self.present(viewController, animated: true, completion: nil)
-        
+            
+            let alert = UIAlertController(title: "Success!", message: "Flowers added to your cart.", preferredStyle: .alert)
+            
+            let submitAction = UIAlertAction(title: "OK", style: .default) { (_) in
+                            self.floristController?.removeAll()
+                
+                                UserDefaults.standard.set(nil, forKey: "ordersCount")
+                
+                            let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "viewController") as UIViewController
+                            self.present(viewController, animated: true, completion: nil)
+               
+            }
+            
+            alert.addAction(submitAction)
+            
+            self.present(alert, animated: true)
+
+//            self.floristController?.removeAll()
+//
+//                UserDefaults.standard.set(nil, forKey: "ordersCount")
+//
+//            let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "viewController") as UIViewController
+//            self.present(viewController, animated: true, completion: nil)
+
         }
        
     }
     
-    //added.
-    func postStripeToken(token: STPToken) {
+   
+    func postStripeToken(token: STPToken, completion: @escaping(Error?)->Void) {
         guard let amount = checkout?.total, let description = checkout?.cardMessage, let shipping = checkout?.shippingAddressLine1, let email = checkout?.shippingAddressPhoneNumber else {return}
         
         stripeController.sendToBackend(token: token, amount: String(format: "%.02f", amount), description: description, shipping: shipping, email: email) { (error) in
@@ -102,5 +126,6 @@ class ReviewViewController: UIViewController, STPAddCardViewControllerDelegate {
            
            
         }
+        
     }
 }

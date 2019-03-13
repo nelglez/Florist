@@ -10,7 +10,7 @@ import UIKit
 import ProgressHUD
 import Stripe
 
-class CheckoutViewController: UIViewController{
+class CheckoutViewController: UIViewController, UITextViewDelegate{
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var cardMessageTextView: UITextView!
@@ -28,6 +28,8 @@ class CheckoutViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        cardMessageTextView.delegate = self
+        cardMessageTextView.text = "Write your card message here ..."
     
         self.datePicker.minimumDate = Date()
         self.datePicker.timeZone = TimeZone.current
@@ -36,6 +38,31 @@ class CheckoutViewController: UIViewController{
         
        print("TOTAL::::::: \(total!)")
 
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if cardMessageTextView.text == "Write your card message here ..." {
+            cardMessageTextView.text = nil
+        }
+    }
+    
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if cardMessageTextView.text == nil {
+            cardMessageTextView.text = "Write your card message here ..."
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+   
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            cardMessageTextView.resignFirstResponder()
+            return false
+        }
+        return true
     }
     
     func dateToString(datePicker: UIDatePicker) -> String {

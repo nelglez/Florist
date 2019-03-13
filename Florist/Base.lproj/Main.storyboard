@@ -159,7 +159,7 @@
                                             <action selector="datePickerPressed:" destination="tfh-cf-arU" eventType="valueChanged" id="Wn0-7Y-Npy"/>
                                         </connections>
                                     </datePicker>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" text="Card Message:" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YNe-Mr-ShD">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YNe-Mr-ShD">
                                         <rect key="frame" x="0.0" y="100" width="374" height="417"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -228,7 +228,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Card Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="w53-6Y-GbQ">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Card Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="w53-6Y-GbQ">
                                         <rect key="frame" x="0.0" y="67" width="374" height="250"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -237,7 +237,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Delivery Info" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fQw-eR-Cr3">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Delivery Info" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fQw-eR-Cr3">
                                         <rect key="frame" x="0.0" y="330" width="374" height="223"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -245,7 +245,10 @@
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLT-Jn-8Vo">
                                         <rect key="frame" x="0.0" y="566" width="374" height="30"/>
-                                        <state key="normal" title="Pay"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Pay">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="payButtonPressed:" destination="GDI-N4-5uv" eventType="touchUpInside" id="Jcx-Oo-dtA"/>
                                         </connections>
@@ -499,7 +502,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ucN-03-gpJ">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucN-03-gpJ">
                                                 <rect key="frame" x="0.0" y="34.5" width="374" height="289.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut </string>

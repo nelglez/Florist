@@ -9,7 +9,7 @@
 import UIKit
 import ProgressHUD
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var addToCart: UIBarButtonItem!
     
@@ -39,7 +39,15 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
 
         updateViews()
+        quantityTextField.delegate = self
        
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
     
     func updateViews() {
