@@ -79,8 +79,10 @@ class DetailViewController: UIViewController {
         
         //MARK:- Create an Order Object
         
+        //This formats the amount into dollars like this 79.00 instead of double 79.0
+         let amount = String(format: "%.02f", finalPrice)
     
-        floristController?.createOrder(with: name, price: String(finalPrice), quantity: Int(quantity)!)
+        floristController?.createOrder(with: name, price: amount, quantity: Int(quantity)!)
         
         //MARK:- Create Alert
         

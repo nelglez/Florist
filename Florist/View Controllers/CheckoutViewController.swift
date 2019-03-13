@@ -17,7 +17,14 @@ class CheckoutViewController: UIViewController{
     
     
     var dateString: String?
+    
+    var total: Double?
+    
 
+    let checkoutController = CheckoutController()
+    var floristController = FloristController()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,6 +34,7 @@ class CheckoutViewController: UIViewController{
      
         self.dateString = dateToString(datePicker: self.datePicker)
         
+       print("TOTAL::::::: \(total!)")
 
     }
     
@@ -59,6 +67,16 @@ class CheckoutViewController: UIViewController{
         self.dateString = dateToString(datePicker: sender)
         
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as? ReviewViewController
+        let checkout = checkoutController.checkout.first
+       
+        destinationVC?.checkout = checkout
+        destinationVC?.floristController = floristController
+    }
+    
     
 }
 
@@ -114,16 +132,21 @@ extension CheckoutViewController: STPShippingAddressViewControllerDelegate {
     func shippingAddressViewController(_ addressViewController: STPShippingAddressViewController, didFinishWith address: STPAddress, shippingMethod method: PKShippingMethod?) {
         print("didFinishWith")
         // Save selected address and shipping method
+       let cost = method?.amount
         
-//        selectedAddress = address.line1!
-//        selectedShippingMethod = method!
+        let method = method?.identifier
         
         
-        debugPrint(address.line1! as Any)
-        debugPrint(method as Any)
+        guard let total = total, let dateString = dateString, let cardMessage = cardMessageTextView.text else {return}
         
-        // Dismiss shipping address view controller
-        dismiss(animated: true)
+        let newtotal = total + Double(truncating: cost ?? 0.0)
+        
+        checkoutController.checkout(with: newtotal, deliverDate: dateString, cardMessage: cardMessage, shippingAddressLine1: address.line1!, shippingAddressName: address.name!, shippingAddressZipcode: address.postalCode!, shippingAddressPhoneNumber: address.phone!, shippingMethodIdentifier: method!)
+        
+        dismiss(animated: true) {
+            self.performSegue(withIdentifier: "toCheckoutVC", sender: self)
+        }
+        
     }
     
     

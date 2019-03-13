@@ -60,7 +60,9 @@ class CartViewController: UIViewController {
         
         let total = price.reduce(0, +)
         
-        totalLabel.text = "Total: $ \(total)"
+      //  totalLabel.text = "\(total)"
+        
+         totalLabel.text = String(format: "%.02f", total)
         
   
     }
@@ -69,13 +71,11 @@ class CartViewController: UIViewController {
         
         let total = price.reduce(0, +)
 
-        totalLabel.text = "Total: $ \(total)"
+       // totalLabel.text = "\(total)"
+         totalLabel.text = String(format: "%.02f", total)
         
     }
-    
-    
-  
-    
+
     func updateView() {
 
        let orders = floristController.orders
@@ -87,11 +87,18 @@ class CartViewController: UIViewController {
         }
         let total = price.reduce(0, +)
         print("TOTAL: \(total)")
-        totalLabel.text = "Total: $ \(total)"
+      //  totalLabel.text = "\(total)"
+        totalLabel.text = String(format: "%.02f", total)
 
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as? CheckoutViewController
+        guard let total = totalLabel.text else {return}
+        destinationVC?.total = Double(total)
+    }
 
-
+   
 }
 
 extension CartViewController: UITableViewDelegate, UITableViewDataSource {
@@ -150,6 +157,8 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
         }
         }
     }
+    
+    
     
 }
 

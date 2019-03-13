@@ -66,6 +66,21 @@ class FloristController {
         saveToPersistentStorage()
     }
     
+    func removeAll() {
+       
+            let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Order")
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        
+         let moc = CoreDataStack.shared.mainContext
+            do {
+                try moc.execute(deleteRequest)
+                try moc.save()
+            } catch {
+                print ("There was an error")
+            }
+       
+    }
+    
     func loadRomance(categoryId: String, completion: @escaping(Romance?) -> Void){
         
         API.Romance_ListApi.REF_ROMANCE_LISTS.child(categoryId).observe(.childAdded) { (snapshot) in
