@@ -78,11 +78,13 @@ class DetailViewController: UIViewController {
         let alert = UIAlertController(title: "Success!", message: "Flowers added to your cart.", preferredStyle: .alert)
       
         let submitAction = UIAlertAction(title: "OK", style: .default) { (_) in
-            if let tabItems = self.tabBarController?.tabBar.items {
-                // In this case we want to modify the badge number of the second tab:
-                let tabItem = tabItems[1]
-                tabItem.badgeValue = quantity
-            }
+
+            let count = UserDefaults.standard.integer(forKey: "ordersCount")
+            let newCount = count + 1
+            
+           UserDefaults.standard.set(newCount, forKey: "ordersCount")
+            
+            
             self.navigationController?.popViewController(animated: true)
         }
         
@@ -91,5 +93,5 @@ class DetailViewController: UIViewController {
         present(alert, animated: true)
    
     }
-   
+    
 }

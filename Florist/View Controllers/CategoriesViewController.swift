@@ -32,16 +32,52 @@ class CategoriesViewController: UIViewController {
         
          NotificationCenter.default.addObserver(self, selector: #selector(newCategoryAdded(_:)), name: .changeCategoryId, object: nil)
         
+        UserDefaults.standard.set(floristController.orders.count, forKey: "ordersCount")
+        
         print("CATEGORY ID: \(categoryId)")
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(badgeCount(_:)), name: .itemCount, object: nil)
+        
+        setBadge()
+        
+    }
+    
+    
+    
+    func setBadge() {
+        let count = UserDefaults.standard.integer(forKey: "ordersCount")
+        if count == 0 {
+            if let tabItems = self.tabBarController?.tabBar.items {
+                let tabItem = tabItems[1]
+                
+                tabItem.badgeValue = nil
+            }
+        } else {
+            if let tabItems = self.tabBarController?.tabBar.items {
+                let tabItem = tabItems[1]
+                
+                tabItem.badgeValue = String(count)
+            }
+        }
+    }
+    
+    @objc func badgeCount(_ notification: Notification) {
+        print("NOTIFICATION TRIGGERED!")
+        guard let badgeCount = notification.userInfo?["itemCount"] as? Int else {return}
+        if let tabItems = self.tabBarController?.tabBar.items {
+            let tabItem = tabItems[1]
+            
+            tabItem.badgeValue = String(badgeCount)
+        }
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         collectionView.reloadData()
+        setBadge()
     }
     
-   
 
 @objc func newCategoryAdded(_ notification: Notification) {
     

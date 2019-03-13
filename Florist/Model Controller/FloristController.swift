@@ -24,7 +24,6 @@ class FloristController {
     
     func createOrder(with itemName: String, price: String, quantity: Int) {
       let order = Order(name: itemName, price: price, quantity: quantity)
-        
         //Added
         if let item = order.price {
             
