@@ -65,13 +65,22 @@ class DetailViewController: UIViewController {
             ProgressHUD.showError("Please provide a quantity")
             return
         }
+        
+        let newQuantity = Double(quantity)
+        
+        guard let amountValue = items.price else {return}
+        let am = Double(amountValue)!
+        let newPrice = am
+        
+        let finalPrice = newPrice * newQuantity!
+        
         self.quantity = Int(quantity) ?? 1
         guard let name = items.name else {return}
         
         //MARK:- Create an Order Object
         
     
-        floristController?.createOrder(with: name, price: items.price!, quantity: Int(quantity)!)
+        floristController?.createOrder(with: name, price: String(finalPrice), quantity: Int(quantity)!)
         
         //MARK:- Create Alert
         
@@ -83,7 +92,6 @@ class DetailViewController: UIViewController {
             let newCount = count + 1
             
            UserDefaults.standard.set(newCount, forKey: "ordersCount")
-            
             
             self.navigationController?.popViewController(animated: true)
         }

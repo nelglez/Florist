@@ -42,8 +42,6 @@ class CategoriesViewController: UIViewController {
         
     }
     
-    
-    
     func setBadge() {
         let count = UserDefaults.standard.integer(forKey: "ordersCount")
         if count == 0 {
