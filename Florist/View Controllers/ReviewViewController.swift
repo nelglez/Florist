@@ -86,7 +86,7 @@ class ReviewViewController: UIViewController, STPAddCardViewControllerDelegate {
 
         dismiss(animated: true) {
             
-            let alert = UIAlertController(title: "Success!", message: "Flowers added to your cart.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Success!", message: "The payment was successful. :)", preferredStyle: .alert)
             
             let submitAction = UIAlertAction(title: "OK", style: .default) { (_) in
                             self.floristController?.removeAll()
