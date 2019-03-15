@@ -102,13 +102,6 @@ class ReviewViewController: UIViewController, STPAddCardViewControllerDelegate {
             
             self.present(alert, animated: true)
 
-//            self.floristController?.removeAll()
-//
-//                UserDefaults.standard.set(nil, forKey: "ordersCount")
-//
-//            let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "viewController") as UIViewController
-//            self.present(viewController, animated: true, completion: nil)
-
         }
        
     }
@@ -123,8 +116,7 @@ class ReviewViewController: UIViewController, STPAddCardViewControllerDelegate {
                 ProgressHUD.showError(error.localizedDescription)
                
             }
-           
-           
+ 
         }
         
     }

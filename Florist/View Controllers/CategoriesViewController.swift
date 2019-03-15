@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class CategoriesViewController: UIViewController {
     
@@ -81,7 +82,7 @@ class CategoriesViewController: UIViewController {
     
     guard let categoryIdSelected = notification.userInfo?["categoryId"] as? String else {return}
     
-    print("Category Selected \(categoryIdSelected)")
+  //  print("Category Selected \(categoryIdSelected)")
     self.categoryId = categoryIdSelected
    
     self.romance.removeAll()
@@ -91,21 +92,24 @@ class CategoriesViewController: UIViewController {
     }
     
     func loadRomance(Id: String) {
+        
         floristController.loadRomance(categoryId: Id) { (romance) in
             self.categoryButton.setTitle("\(String(describing: romance!.category!)) >", for: .normal)
             guard let romance = romance else {return}
             
             self.romance.append(romance)
+            
             self.collectionView.reloadData()
         }
     }
     
     func loadRomance(){
-        
+        ProgressHUD.show("Loading...")
         floristController.loadRomance(categoryId: self.categoryId) { (romance) in
            self.categoryButton.setTitle("\(String(describing: romance!.category!)) >", for: .normal)
             guard let romance = romance else {return}
             self.romance.append(romance)
+            ProgressHUD.showSuccess()
             self.collectionView.reloadData()
         }
     }
@@ -146,14 +150,27 @@ extension CategoriesViewController: UICollectionViewDataSource, UICollectionView
      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCollectionViewCell
         let romanceArray = romance[indexPath.row]
-        cell.layer.borderWidth = 1
+        //MARK:- Add Shadow to cell
+        cell.contentView.layer.cornerRadius = 2.0
+        cell.contentView.layer.borderWidth = 1.0
+        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+        cell.contentView.layer.masksToBounds = true
+        
+        cell.layer.backgroundColor = UIColor.white.cgColor
+        cell.layer.shadowColor = UIColor.gray.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)//CGSizeMake(0, 2.0);
+        cell.layer.shadowRadius = 2.0
+        cell.layer.shadowOpacity = 1.0
+        cell.layer.masksToBounds = false
+        cell.layer.shadowPath = UIBezierPath(roundedRect:cell.bounds, cornerRadius:cell.contentView.layer.cornerRadius).cgPath
+    
         cell.romance = romanceArray
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
