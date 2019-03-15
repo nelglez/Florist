@@ -35,9 +35,7 @@ class CheckoutViewController: UIViewController, UITextViewDelegate{
         self.datePicker.timeZone = TimeZone.current
      
         self.dateString = dateToString(datePicker: self.datePicker)
-        
-       print("TOTAL::::::: \(total!)")
-
+    
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -74,14 +72,12 @@ class CheckoutViewController: UIViewController, UITextViewDelegate{
 
     @IBAction func selectShippingBarButtonPressed(_ sender: UIBarButtonItem) {
         
-        guard let date = dateString else {
+        guard dateString != nil else {
             ProgressHUD.showError("Please select a delivery date")
             return
         }
         
         handleShippingButtonTapped()
-        
-        print("THE DATE FOR DELIVERY IS: \(date)")
         
     }
     

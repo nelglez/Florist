@@ -29,7 +29,7 @@ class AboutUsViewController: UIViewController, MFMailComposeViewControllerDelega
             mail.mailComposeDelegate = self
            // mail.setToRecipients(["test@test.test"])
             mail.setSubject("Check out this iPhone App")
-            mail.setMessageBody("<p>I found a really cool app which lets you send the freshest flowers from your iPhone to anyone in Miami FL.<p><br /><br /><p>Check it out im sure you will find it cool as well", isHTML: true)
+            mail.setMessageBody("<p>I found a really cool app which lets you send the freshest flowers from your iPhone to anyone in Miami FL.<p><br /><br /><p>Check it out I'm sure you will find it cool as well!", isHTML: true)
             present(mail, animated: true, completion: nil)
         } else {
             // give feedback to the user
