@@ -83,7 +83,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         }
         
         guard let items = product else {return}
-        
+        title = items.name
         productTitleLabel.text = items.name
         productPriceLabel.text = "$ \(String(describing: items.price!))"
         productDescriptionTextView.text = items.description

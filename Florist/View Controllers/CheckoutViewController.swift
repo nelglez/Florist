@@ -30,7 +30,7 @@ class CheckoutViewController: UIViewController, UITextViewDelegate{
 
         cardMessageTextView.delegate = self
         cardMessageTextView.text = "Write your card message here ..."
-    
+       
         self.datePicker.minimumDate = Date()
         self.datePicker.timeZone = TimeZone.current
      
@@ -41,6 +41,7 @@ class CheckoutViewController: UIViewController, UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
         if cardMessageTextView.text == "Write your card message here ..." {
             cardMessageTextView.text = nil
+            cardMessageTextView.textColor = UIColor.black
         }
     }
     
